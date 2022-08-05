@@ -3,12 +3,16 @@ import { ContextoFormulario } from "../../context/ContextoFormulario";
 const Detalle = () => {
   // Aqui deberíamos obtener los datos del formulario para poder mostrarlo en
   // la vista previa.
-  const { formData, setFormData } = useContext(ContextoFormulario)
+  const { state, dispatch } = useContext(ContextoFormulario)
+  const handleSend = () => {
+    alert("Solicitud enviada :)")
+    dispatch({type: 'reset_data'})
+  }
   useEffect(() => {
-    if (formData) {
-      console.log(formData)
+    if (state) {
+      console.log(state)
     }
-  }, [formData])
+  }, [state])
   return (
     <div className="detalle-formulario">
       <div className="encabezado">
@@ -18,13 +22,13 @@ const Detalle = () => {
         <h4>Datos del Entrenador</h4>
         <div className="fila">
           <div className="row-tile-content">
-            <p>Nombre: {formData['nombre']}</p>
+            <p>Nombre: {state['nombre']}</p>
           </div>
           <div className="row-tile-content">
-            <p>Apellido: {formData['apellido']}</p>
+            <p>Apellido: {state['apellido']}</p>
           </div>
           <div className="row-tile-content">
-            <p>Email: {formData['email']}</p>
+            <p>Email: {state['email']}</p>
           </div>
         </div>
       </section>
@@ -32,13 +36,13 @@ const Detalle = () => {
         <h4>Datos del Pokémon</h4>
         <div className="fila">
           <div className="row-tile-content">
-            <p>Nombre: {formData['nombrePokemon']}</p>
+            <p>Nombre: {state['nombrePokemon']}</p>
           </div>
         </div>
       </section>
       <button
         className="boton-enviar"
-        onClick={() => alert("Solicitud enviada :)")}
+        onClick={handleSend}
       >
         Enviar Solicitud
       </button>

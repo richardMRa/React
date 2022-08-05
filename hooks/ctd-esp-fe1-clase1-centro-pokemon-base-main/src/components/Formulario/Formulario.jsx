@@ -13,7 +13,6 @@ import Detalle from "./Detalle";
 
 const Formulario = () => {
 
-  
 
   return (
     <>

@@ -1,11 +1,28 @@
 // Aqui debemos crear nuestro contexto y nuestro provider.
-import { createContext, useState } from "react"
+import { createContext, useReducer, useState } from "react"
 
 export const ContextoFormulario = createContext()
 
 const ContextoFormularioProvider = ({ children }) => {
 
-    const [formData, setFormData] = useState({
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case 'add_data':
+                return {...state, [action.payload.name]: action.payload.value}
+            case 'reset_data':
+                return {}
+        }
+    }
+    
+    const initialValue = {
+        nombre: '',
+        apellido: '',
+        email: '',
+        nombrePokemon: ''
+    }
+    const [state, dispatch] = useReducer(reducer, initialValue)
+
+    /*const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
         email: '',
@@ -14,12 +31,12 @@ const ContextoFormularioProvider = ({ children }) => {
     const addFormData = (val) => {
         setFormData({...formData, [val.name]: val.value})
     }
-
+    */
     return (
         <ContextoFormulario.Provider
             value={{
-                formData,
-                addFormData
+                state,
+                dispatch
             }}
         >
             {children}
